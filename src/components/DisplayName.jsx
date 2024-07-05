@@ -3,8 +3,8 @@ import styles from './DisplayName.module.css';
 
 const DisplayName = () => {
     const [formData, setFormData] = useState({
-        "First Name": "",
-        "Last Name": ""
+        "first": "",
+        "last": ""
     });
     
     const fullNameRef = useRef(null);
@@ -31,27 +31,29 @@ const DisplayName = () => {
                 <label for="First Name">First Name: </label>
                 <input 
                     required
-                    name="First Name"
-                    value={formData["First Name"]}
+                    type="text"
+                    name="first"
+                    value={formData["first"]}
                     onChange={handleChange}
                 />
                 <br />
                 <label for="Last Name">Last Name: </label>
                 <input 
                     required
-                    name="Last Name"
-                    value={formData["Last Name"]}
+                    type="text"
+                    name="last"
+                    value={formData.last}
                     onChange={handleChange}
                 />
                 <br />
-                <button onClick={handleSubmit}>Submit</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
 
             <p 
                 ref={fullNameRef}
                 className={styles.full_name}
             >
-                Full Name: {formData["First Name"] + " " + formData["Last Name"]}
+                Full Name: {formData["first"] + " " + formData["last"]}
             </p>
         </div>
     );
