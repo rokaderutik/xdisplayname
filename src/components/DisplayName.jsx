@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import styles from './DisplayName.module.css';
 
 const DisplayName = () => {
@@ -6,11 +6,13 @@ const DisplayName = () => {
         "first": "",
         "last": ""
     });
-    
-    const fullNameRef = useRef(null);
+    const [isSubmit, setIsSubmit] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if(value === "") {
+            setIsSubmit(false);
+        }
         setFormData({
             ...formData,
             [name]: value
@@ -19,8 +21,9 @@ const DisplayName = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        fullNameRef.current.style.display = 'block';
+        if(formData.first !== "" && formData.last !== "") {
+            setIsSubmit(true);
+        }
     };
 
     return (
@@ -49,12 +52,7 @@ const DisplayName = () => {
                 <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
 
-            <p 
-                ref={fullNameRef}
-                className={styles.full_name}
-            >
-                Full Name: {formData["first"] + " " + formData["last"]}
-            </p>
+            {isSubmit && <p>Full Name: {formData["first"] + " " + formData["last"]}</p>}
         </div>
     );
 };
